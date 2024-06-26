@@ -316,6 +316,9 @@ Your ultimate companion to find internal Serenity.
                     hidden
                     style={{ display: 'none' }} // This makes the Form always invisible
                   />
+                  <p>
+                    zbi
+                  </p>
                   <button onClick={() => sttFromMic()}>
                     <span className="flex items-center justify-center bg-black rounded-full p-4">
                       <BiMicrophone className="text-blue-500 text-3xl" />
