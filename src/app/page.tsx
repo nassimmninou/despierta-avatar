@@ -312,7 +312,7 @@ Your ultimate companion to find internal Serenity.
               </div>
             </div>
           ) : (
-            <div className="flex justify-center w-full mar h-dvh flex-col items-center  !pt-20 !pb-30 md:!py-24">
+            <div className="flex justify-center w-full mar h-dvh flex-col items-center  !pt-20 !pb-30 md:!pt-24  md:!pb-35">
               <div className="relative h-4/5 w-full flex items-center justify-center">
                 <img
                   src="waiting.png"
