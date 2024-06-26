@@ -31,7 +31,15 @@ const ResponseMessage: React.FC<ResponseMessageProps> = ({ content, style }) => 
             a: {
               component: ({ ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" />,
             },
+            img: {
+              component: ({ ...props }) => (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <img {...props} className="max-w-full h-auto" style={{ maxWidth: '70%' }} />
+                </div>
+              ),
+            },
           },
+          
         }}
       >
         {content}

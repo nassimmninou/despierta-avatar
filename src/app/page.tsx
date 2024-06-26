@@ -124,7 +124,7 @@ Your ultimate companion to find internal Serenity.
       <main className=" ">
         <div className="w-full">
           {showChat ? (
-            <div className=" overflow-y-auto  relative p-4 md:p-6   flex flex-col min-h-svh !py-32 md:!p-40 ">
+            <div className=" overflow-y-auto  relative p-4 md:p-6   flex flex-col min-h-svh !py-32 md:!py-40 ">
               {messages.map((message: MessageProps) => {
                 return <Message key={message.id} {...message} />;
               })}
@@ -181,7 +181,7 @@ Your ultimate companion to find internal Serenity.
             
           ) : (
         <div className="flex justify-center w-full mar h-dvh flex-col items-center pt-20">
-            <video src="speaking.mp4" autoPlay loop className="h-4/5"></video> {/* 40% height */}
+            <video src="speaking.mp4"  playsInline  autoPlay loop className="h-4/5"></video> {/* 40% height */}
             <ResponseMessage content={response} style={{ height: '60%' }} /> {/* 60% height */}
         </div>
 
