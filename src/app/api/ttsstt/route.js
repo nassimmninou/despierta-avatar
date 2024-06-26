@@ -25,8 +25,7 @@ export async function GET(req) {
     process.env["SPEECH_KEY"],
     process.env["SPEECH_REGION"]
   );
-  const language = req.nextUrl.searchParams.get("language");
-  speechConfig.speechSynthesisVoiceName = "es-ES-ElviraNeural";
+  speechConfig.speechSynthesisVoiceName = "en-US-JennyMultilingualNeural";
 
   const speechSynthesizer = new sdk.SpeechSynthesizer(speechConfig);
   const visemes = [];
