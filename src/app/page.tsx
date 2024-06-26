@@ -8,16 +8,23 @@ import PoweredBy from "@/components/powered-by";
 import MessageLoading from "@/components/message-loading";
 import { INITIAL_QUESTIONS } from "@/utils/const";
 import ResponseMessage from "@/components/response-message";
+import { getTokenOrRefresh } from '../utils/token_util';
+import { ResultReason } from 'microsoft-cognitiveservices-speech-sdk';
+import { BiMicrophone } from "react-icons/bi";
+
+const speechsdk = require('microsoft-cognitiveservices-speech-sdk');
 
 export default function Home() {
+  const [avatarState, setAvatarState] = useState("waiting")
   const formRef = useRef<HTMLFormElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [streaming, setStreaming] = useState<boolean>(false);
   const [audioPlayer, setAudioPlayer] = useState<HTMLAudioElement | null>(null);
   const [visemes, setVisemes] = useState<any>(null);
   const [showChat, setShowChat] = useState<boolean>(false);
-  const [response, setResponse] = useState("");
-
+  const [response, setResponse] = useState("Marhba bik bda m3aya awjah l9alwa");
+  const [displayText, setDisplayText] = useState('INITIALIZED: ready to test speech...');
+  const [recording, setRecording] = useState("not yet");
   const { messages, input, handleInputChange, handleSubmit, setInput } =
     useChat({
       api: "/api/guru",
@@ -37,6 +44,41 @@ Your ultimate companion to find internal Serenity.
       },
     });
 
+  async function sttFromMic() {
+    const tokenObj = await getTokenOrRefresh();
+    await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region);
+    speechConfig.speechRecognitionLanguage = "en-US";
+
+    const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
+    const recognizer = new speechsdk.SpeechRecognizer(speechConfig, audioConfig);
+
+    setDisplayText('speak into your microphone... ');
+    setAvatarState("listening")
+    setRecording("recording");
+
+    recognizer.recognizeOnceAsync((result: { reason: ResultReason; text: any; }) => {
+      if (result.reason === ResultReason.RecognizedSpeech) {
+        setDisplayText(`You said abro : ${result.text}`);
+        setRecording("not yet");
+        console.log(result.text)
+        setInput(result.text);
+        setTimeout(() => {
+          formRef.current?.dispatchEvent(
+            new Event("submit", {
+              cancelable: true,
+              bubbles: true,
+            })
+          );
+        }, 1);
+      } else {
+        setDisplayText('ERROR: Speech was cancelled or could not be recognized. Ensure your microphone is working properly.');
+        setRecording("faild");
+      }
+    });
+  }
+
   const onClickQuestion = (value: string) => {
     setInput(value);
     setTimeout(() => {
@@ -48,6 +90,7 @@ Your ultimate companion to find internal Serenity.
       );
     }, 1);
   };
+
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -78,6 +121,7 @@ Your ultimate companion to find internal Serenity.
       e.preventDefault();
       handleSubmit(e);
       setStreaming(true);
+      setAvatarState("thinking");
     },
     [handleSubmit]
   );
@@ -151,39 +195,82 @@ Your ultimate companion to find internal Serenity.
               {/* bottom ref */}
               <div ref={messagesEndRef} />
               <div
-        className={cx(
-          "fixed z-10 bottom-0 inset-x-0",
-          "flex justify-center items-center",
-          "bg-white"
-        )}
-      >
-        <span
-          className="absolute bottom-full h-10 inset-x-0 from-white/0
-         bg-gradient-to-b to-white pointer-events-none"
-        />
-
-        <div className="w-full max-w-screen-md rounded-xl px-4 md:px-5 py-6">
-          <Form
-            ref={formRef}
-            onSubmit={onSubmit}
-            inputProps={{
-              disabled: streaming,
-              value: input,
-              onChange: handleInputChange,
-            }}
-            buttonProps={{
-              disabled: streaming,
-            }}
-          />
-        </div>
-      </div>
+                className={cx(
+                  "fixed z-10 bottom-0 inset-x-0",
+                  "flex justify-center items-center",
+                  "bg-white"
+                )}
+              >
+                <span
+                  className="absolute bottom-full h-10 inset-x-0 from-white/0 bg-gradient-to-b to-white pointer-events-none"
+                />
+                <div className="w-full max-w-screen-md rounded-xl px-4 md:px-5 py-6">
+                  <Form
+                    ref={formRef}
+                    onSubmit={onSubmit}
+                    inputProps={{
+                      disabled: streaming,
+                      value: input,
+                      onChange: handleInputChange,
+                    }}
+                    buttonProps={{
+                      disabled: streaming,
+                    }}
+                  />
+                </div>
+              </div>
             </div>
-            
           ) : (
-        <div className="flex justify-center w-full mar h-dvh flex-col items-center pt-20">
-            <video src="speaking.mp4"  playsInline  autoPlay loop className="h-4/5"></video> {/* 40% height */}
-            <ResponseMessage content={response} style={{ height: '60%' }} /> {/* 60% height */}
-        </div>
+
+            <div className="flex justify-center w-full mar h-dvh flex-col items-center pt-20">
+                    {avatarState === "waiting" && (
+                      <img src="waiting.png"  className="h-4/5"></img>
+                    )}
+                    {avatarState === "listening" && (
+                      <video src="listening.mp4" playsInline autoPlay loop className="h-4/5"></video>
+                    )}
+                    {avatarState === "thinking" && (
+                      <video src="thinking.mp4" playsInline autoPlay loop className="h-4/5"></video>
+                    )}
+                    {avatarState === "speaking" && (
+                      <video src="speaking.mp4" playsInline autoPlay loop className="h-4/5"></video>
+                    )}
+              <ResponseMessage content={response} style={{ height: '60%' }} /> {/* 60% height */}
+              <div
+                className={cx(
+                  "fixed z-10 bottom-0 inset-x-0",
+                  "flex justify-center items-center",
+                  "bg-white"
+                )}
+              >
+
+
+                <span
+                  className="absolute bottom-full h-10 inset-x-0 from-white/0 bg-gradient-to-b to-white pointer-events-none"
+                />
+                <div className="w-full max-w-screen-md rounded-xl px-4 md:px-5 py-6">
+                  <Form
+                    ref={formRef}
+                    onSubmit={onSubmit}
+                    inputProps={{
+                      disabled: streaming,
+                      value: input,
+                      onChange: handleInputChange,
+                    }}
+                    buttonProps={{
+                      disabled: streaming,
+                    }}
+                    hidden
+                    style={{ display: 'none' }} // This makes the Form always invisible
+                  />
+                  <button onClick={() => sttFromMic()}>
+                    <span className="flex items-center justify-center bg-black rounded-full p-4 ">
+                      <BiMicrophone className="text-blue-500 text-3xl" />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
 
           )}
         </div>

@@ -19,7 +19,7 @@ const ResponseMessage: React.FC<ResponseMessageProps> = ({ content, style }) => 
         ...style,
         maxHeight: '100%', // Set a maximum height
         overflowY: 'auto', // Enable vertical scrolling
-      }}    >
+      }} >
       <Markdown
         className={cx(
           "py-1.5 md:py-1 space-y-4",
