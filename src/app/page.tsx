@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Message as MessageProps, useChat } from "ai/react";
 import Form from "@/components/form";
@@ -15,7 +15,7 @@ import { BiMicrophone } from "react-icons/bi";
 const speechsdk = require('microsoft-cognitiveservices-speech-sdk');
 
 export default function Home() {
-  const [avatarState, setAvatarState] = useState("waiting")
+  const [avatarState, setAvatarState] = useState("waiting");
   const formRef = useRef<HTMLFormElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [streaming, setStreaming] = useState<boolean>(false);
@@ -41,6 +41,7 @@ Your ultimate companion to find internal Serenity.
       ],
       onResponse: () => {
         setStreaming(false);
+        
       },
     });
 
@@ -55,14 +56,14 @@ Your ultimate companion to find internal Serenity.
     const recognizer = new speechsdk.SpeechRecognizer(speechConfig, audioConfig);
 
     setDisplayText('speak into your microphone... ');
-    setAvatarState("listening")
+    setAvatarState("listening");
     setRecording("recording");
 
     recognizer.recognizeOnceAsync((result: { reason: ResultReason; text: any; }) => {
       if (result.reason === ResultReason.RecognizedSpeech) {
         setDisplayText(`You said abro : ${result.text}`);
         setRecording("not yet");
-        console.log(result.text)
+        console.log(result.text);
         setInput(result.text);
         setTimeout(() => {
           formRef.current?.dispatchEvent(
@@ -91,7 +92,6 @@ Your ultimate companion to find internal Serenity.
     }, 1);
   };
 
-
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView();
@@ -105,15 +105,30 @@ Your ultimate companion to find internal Serenity.
       console.log("ya halawti donia");
       console.log(response);
       setResponse(response);
-      // fetchTTS(response);
+      fetchTTS(response);
       console.log("ya ilahi");
     }
     console.log(messages);
   }, [messages]);
 
   useEffect(() => {
-    audioPlayer?.play();
-    setStreaming(false);
+    if (audioPlayer) {
+      const handleAudioEnd = () => {
+        setAvatarState("waiting"); // Transition back to waiting state
+        console.log("Audio playback finished");
+      };
+  
+      // Attach event listener
+      audioPlayer.addEventListener('ended', handleAudioEnd);
+  
+      // Start playback
+      audioPlayer.play();
+  
+      // Clean-up function to remove the event listener
+      return () => {
+        audioPlayer.removeEventListener('ended', handleAudioEnd);
+      };
+    }
   }, [audioPlayer]);
 
   const onSubmit = useCallback(
@@ -140,6 +155,7 @@ Your ultimate companion to find internal Serenity.
 
       setAudioPlayer(audioPlayer);
       setVisemes(visemes);
+      setAvatarState("speaking");
     } catch (error) {
       console.error("Error fetching TTS:", error);
     }
@@ -162,13 +178,30 @@ Your ultimate companion to find internal Serenity.
         </button>
       </div>
 
-      {/* Spacer div to ensure content doesn't go under fixed buttons */}
+      <style jsx>{`
+        .hidden {
+          display: none;
+        }
+        .fade-enter {
+          opacity: 0;
+        }
+        .fade-enter-active {
+          opacity: 1;
+          transition: opacity 0.5s;
+        }
+        .fade-exit {
+          opacity: 1;
+        }
+        .fade-exit-active {
+          opacity: 0;
+          transition: opacity 0.5s;
+        }
+      `}</style>
 
-      {/* Scrollable chat area  relative p-4 md:p-6 flex overflow-y-auto min-h-svh !pb-32 md:!pb-40 */}
-      <main className=" ">
+      <main className="">
         <div className="w-full">
           {showChat ? (
-            <div className=" overflow-y-auto  relative p-4 md:p-6   flex flex-col min-h-svh !py-32 md:!py-40 ">
+            <div className="overflow-y-auto relative p-4 md:p-6 flex flex-col min-h-svh !py-32 md:!py-40">
               {messages.map((message: MessageProps) => {
                 return <Message key={message.id} {...message} />;
               })}
@@ -191,8 +224,6 @@ Your ultimate companion to find internal Serenity.
                   })}
                 </div>
               )}
-
-              {/* bottom ref */}
               <div ref={messagesEndRef} />
               <div
                 className={cx(
@@ -201,9 +232,7 @@ Your ultimate companion to find internal Serenity.
                   "bg-white"
                 )}
               >
-                <span
-                  className="absolute bottom-full h-10 inset-x-0 from-white/0 bg-gradient-to-b to-white pointer-events-none"
-                />
+                <span className="absolute bottom-full h-10 inset-x-0 from-white/0 bg-gradient-to-b to-white pointer-events-none" />
                 <div className="w-full max-w-screen-md rounded-xl px-4 md:px-5 py-6">
                   <Form
                     ref={formRef}
@@ -221,21 +250,49 @@ Your ultimate companion to find internal Serenity.
               </div>
             </div>
           ) : (
-
             <div className="flex justify-center w-full mar h-dvh flex-col items-center pt-20">
-                    {avatarState === "waiting" && (
-                      <img src="waiting.png"  className="h-4/5"></img>
-                    )}
-                    {avatarState === "listening" && (
-                      <video src="listening.mp4" playsInline autoPlay loop className="h-4/5"></video>
-                    )}
-                    {avatarState === "thinking" && (
-                      <video src="thinking.mp4" playsInline autoPlay loop className="h-4/5"></video>
-                    )}
-                    {avatarState === "speaking" && (
-                      <video src="speaking.mp4" playsInline autoPlay loop className="h-4/5"></video>
-                    )}
-              <ResponseMessage content={response} style={{ height: '60%' }} /> {/* 60% height */}
+              <div className="relative h-4/5 w-full flex items-center justify-center">
+                <img
+                  src="waiting.png"
+                  className={`absolute inset-0 h-full ${avatarState === "waiting" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
+                />
+                <video
+                  src="listening.mp4"
+                  playsInline
+                  autoPlay
+                  loop
+                  preload="auto"
+                  className={`absolute inset-0 h-full w-full ${avatarState === "listening" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
+                />
+                <video
+                  src="thinking.mp4"
+                  playsInline
+                  autoPlay
+                  loop
+                  preload="auto"
+                  className={`absolute inset-0 h-full w-full ${avatarState === "thinking" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
+                />
+                <video
+                  src="speaking.mp4"
+                  playsInline
+                  autoPlay
+                  loop
+                  preload="auto"
+                  className={`absolute inset-0 h-full w-full ${avatarState === "speaking" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
+                />
+              </div>
+              {avatarState === "waiting" && (
+                <ResponseMessage content={response} style={{ height: '60%' }} />
+              )}
+              {avatarState === "listening" && (
+                <ResponseMessage content="Listening ..." style={{ height: '60%' }} />
+              )}
+              {avatarState === "thinking" && (
+                <ResponseMessage content="Generating Your response ..." style={{ height: '60%' }} />
+              )}
+              {avatarState === "speaking" && (
+                <ResponseMessage content={response} style={{ height: '60%' }} />
+              )}
               <div
                 className={cx(
                   "fixed z-10 bottom-0 inset-x-0",
@@ -243,11 +300,7 @@ Your ultimate companion to find internal Serenity.
                   "bg-white"
                 )}
               >
-
-
-                <span
-                  className="absolute bottom-full h-10 inset-x-0 from-white/0 bg-gradient-to-b to-white pointer-events-none"
-                />
+                <span className="absolute bottom-full h-10 inset-x-0 from-white/0 bg-gradient-to-b to-white pointer-events-none" />
                 <div className="w-full max-w-screen-md rounded-xl px-4 md:px-5 py-6">
                   <Form
                     ref={formRef}
@@ -264,20 +317,16 @@ Your ultimate companion to find internal Serenity.
                     style={{ display: 'none' }} // This makes the Form always invisible
                   />
                   <button onClick={() => sttFromMic()}>
-                    <span className="flex items-center justify-center bg-black rounded-full p-4 ">
+                    <span className="flex items-center justify-center bg-black rounded-full p-4">
                       <BiMicrophone className="text-blue-500 text-3xl" />
                     </span>
                   </button>
                 </div>
               </div>
             </div>
-
           )}
         </div>
       </main>
-
-      {/* Fixed input form */}
-
     </div>
   );
 }
