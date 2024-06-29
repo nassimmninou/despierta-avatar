@@ -105,7 +105,7 @@ Your ultimate companion to find internal Serenity.
                   bubbles: true,
                 })
               );
-            }, 1);
+            }, 500);
           } else {
             setAvatarState("waiting");
             setRecognizer(null);

@@ -7,7 +7,6 @@ export async function getTokenOrRefresh() {
     const expirationTime = cookie.get('speech-token-expiration');
 
     const currentTime = Math.floor(Date.now() / 1000); // current time in seconds
-    console.log("mal l97bamkom")
     if (speechToken === undefined || currentTime >= expirationTime) {
         try {
             const url = `/api/ttsstt?type=stt`; // Append a timestamp to the URL
