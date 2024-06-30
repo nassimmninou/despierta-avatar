@@ -30,7 +30,7 @@ const [showLanguageDialog, setShowLanguageDialog] = useState<boolean>(false);
   const [audioPlayer, setAudioPlayer] = useState<HTMLAudioElement | null>(null);
   const [visemes, setVisemes] = useState<any>(null);
   const [showChat, setShowChat] = useState<boolean>(false);
-  const [response, setResponse] = useState("Hello "+search+" Start the conversation Either by asking in the text bar or record your voice");
+  const [response, setResponse] = useState("Hello "+search+" Are you ready to discover how we can help you reach your full potential ?");
 
   const [displayText, setDisplayText] = useState('INITIALIZED: ready to test speech...');
   const [recording, setRecording] = useState("not yet");
@@ -357,7 +357,7 @@ Your ultimate companion to find internal Serenity.
                 <ResponseMessage content="Listening ..." style={{ height: '60%' }} />
               )}
               {avatarState === "thinking" && (
-                <ResponseMessage content="Generating Your response ..." style={{ height: '60%' }} />
+                <ResponseMessage content="Analyzing ..." style={{ height: '60%' }} />
               )}
               {avatarState === "speaking" && (
                 <ResponseMessage content={response} style={{ height: '60%' }} />
