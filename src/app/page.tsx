@@ -12,11 +12,14 @@ import { getTokenOrRefresh } from '../utils/token_util';
 import { SpeechRecognizer, SpeechConfig, AudioConfig, ResultReason } from 'microsoft-cognitiveservices-speech-sdk';
 import { BiMicrophone } from "react-icons/bi";
 import { BsFillStopCircleFill } from "react-icons/bs";
+import { useSearchParams } from 'next/navigation'
 const speechsdk = require('microsoft-cognitiveservices-speech-sdk');
 import { marked } from 'marked';
 import he from 'he';
 export default function Home() {
-  const [language, setLanguage] = useState<string | null>(null);
+  const searchParams = useSearchParams()
+  const search = searchParams.get('name')
+const [language, setLanguage] = useState<string | null>(null);
 const [showLanguageDialog, setShowLanguageDialog] = useState<boolean>(false);
 
   const [recognizer, setRecognizer] = useState<SpeechRecognizer | null>(null);
@@ -27,7 +30,8 @@ const [showLanguageDialog, setShowLanguageDialog] = useState<boolean>(false);
   const [audioPlayer, setAudioPlayer] = useState<HTMLAudioElement | null>(null);
   const [visemes, setVisemes] = useState<any>(null);
   const [showChat, setShowChat] = useState<boolean>(false);
-  const [response, setResponse] = useState("Start the conversation Either by asking in the text bar or record your voice");
+  const [response, setResponse] = useState("Hello "+search+" Start the conversation Either by asking in the text bar or record your voice");
+
   const [displayText, setDisplayText] = useState('INITIALIZED: ready to test speech...');
   const [recording, setRecording] = useState("not yet");
   const { messages, input, handleInputChange, handleSubmit, setInput } =
@@ -322,6 +326,7 @@ Your ultimate companion to find internal Serenity.
                   src="listening.mp4"
                   playsInline
                   autoPlay
+                  muted 
                   loop
                   preload="auto"
                   className={`absolute inset-0 h-full w-full ${avatarState === "listening" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
@@ -330,6 +335,7 @@ Your ultimate companion to find internal Serenity.
                   src="thinking.mp4"
                   playsInline
                   autoPlay
+                  muted 
                   loop
                   preload="auto"
                   className={`absolute inset-0 h-full w-full ${avatarState === "thinking" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
@@ -338,6 +344,7 @@ Your ultimate companion to find internal Serenity.
                   src="speaking.mp4"
                   playsInline
                   autoPlay
+                  muted 
                   loop
                   preload="auto"
                   className={`absolute inset-0 h-full w-full ${avatarState === "speaking" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
