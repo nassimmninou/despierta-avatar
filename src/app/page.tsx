@@ -40,12 +40,12 @@ export default function Home() {
 const [randqst, setRandqst] = useState(Math.floor(Math.random() * 11));
 const searchParams = useSearchParams()
 const search = searchParams.get('name')
-let name 
+let name: string = ""; // Initialize the variable
 
-if (name) {
-  name=search
+if (search) {
+  name = search;
 } else {
-  name="Unregistered"
+  name = "Unregistered";
 }
 const [language, setLanguage] = useState<string | null>(null);
 const [showLanguageDialog, setShowLanguageDialog] = useState<boolean>(false);
