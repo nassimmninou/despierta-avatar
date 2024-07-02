@@ -16,9 +16,37 @@ import { useSearchParams } from 'next/navigation'
 const speechsdk = require('microsoft-cognitiveservices-speech-sdk');
 import { marked } from 'marked';
 import he from 'he';
+
+const saveMessages = (messages: any) => {
+  if (typeof window !== 'undefined') {
+  localStorage.setItem('chatMessages', JSON.stringify(messages));
+  }
+};
+
+const loadMessages = () => {
+  if (typeof window !== 'undefined') {
+
+  const messages = localStorage.getItem('chatMessages');
+  return messages ? JSON.parse(messages) : [];
+  }
+};
+const handleReset = () => {
+  if (typeof window !== 'undefined') {
+  localStorage.removeItem('chatMessages');
+  window.location.reload(); // This will reload the page to reset the state
+  }
+};
 export default function Home() {
-  const searchParams = useSearchParams()
-  const search = searchParams.get('name')
+const [randqst, setRandqst] = useState(Math.floor(Math.random() * 11));
+const searchParams = useSearchParams()
+const search = searchParams.get('name')
+let name 
+
+if (name) {
+  name=search
+} else {
+  name="Unregistered"
+}
 const [language, setLanguage] = useState<string | null>(null);
 const [showLanguageDialog, setShowLanguageDialog] = useState<boolean>(false);
 
@@ -30,29 +58,36 @@ const [showLanguageDialog, setShowLanguageDialog] = useState<boolean>(false);
   const [audioPlayer, setAudioPlayer] = useState<HTMLAudioElement | null>(null);
   const [visemes, setVisemes] = useState<any>(null);
   const [showChat, setShowChat] = useState<boolean>(false);
-  const [response, setResponse] = useState("Hello "+search+" Are you ready to discover how we can help you reach your full potential ?");
-
+  const [response, setResponse] = useState("Hello "+name+" Are you ready to discover how we can help you reach your full potential ?");
+  const [count,setCount]=useState(0)
   const [displayText, setDisplayText] = useState('INITIALIZED: ready to test speech...');
   const [recording, setRecording] = useState("not yet");
   const { messages, input, handleInputChange, handleSubmit, setInput } =
-    useChat({
-      api: "/api/guru",
-      initialMessages: [
-        {
-          id: "0",
-          role: "system",
-          content: `
+  useChat({
+    api: "/api/guru",
+    initialMessages: loadMessages()?.length ? loadMessages() : [
+      {
+        id: "0",
+        role: "system",
+        content: `
 **Welcome to DespiertaAI**
 
 Your ultimate companion to find internal Serenity.
           `,
-        },
-      ],
-      onResponse: () => {
-        setStreaming(false);
-        
       },
-    });
+    ],
+    body: {
+      additionalData: {
+        language: "language", // or any other data you want to send
+      }
+    },
+    onResponse: () => {
+      setStreaming(false);
+      saveMessages(messages);
+    },
+    
+  });
+
 
     const stopAudioPlayer = () => {
       if (audioPlayer) {
@@ -146,7 +181,9 @@ Your ultimate companion to find internal Serenity.
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView();
     }
+    saveMessages(messages);
   }, [messages]);
+  
 
   useEffect(() => {
     const response = messages[messages.length - 1]["content"];
@@ -155,7 +192,10 @@ Your ultimate companion to find internal Serenity.
       console.log("ya halawti donia");
       console.log(response);
       setResponse(response);
-      fetchTTS(response);
+      console.log("Ana kanfetchi awjah xzabbbbbbbbbbbbbbbbbbbbbbb")
+      if(!showChat && count>0){
+       fetchTTS(response);
+      }
       console.log("ya ilahi");
     }
     console.log(messages);
@@ -184,8 +224,18 @@ Your ultimate companion to find internal Serenity.
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      handleSubmit(e);
+      handleSubmit(e, {
+        options: {
+          body: {
+            additionalData: {
+              name: name,
+              rand : randqst
+            }
+          }
+        }
+      });
       setStreaming(true);
+      setCount(count+1)
       setAvatarState("thinking");
       if (audioPlayer) {
         audioPlayer.pause();
@@ -193,8 +243,9 @@ Your ultimate companion to find internal Serenity.
         setAudioPlayer(null);
       }
     },
-    [handleSubmit]
+    [handleSubmit, input, audioPlayer, language] // add language to the dependency array
   );
+  
 
   const fetchTTS = async (text: string) => {
     try {
@@ -229,6 +280,7 @@ Your ultimate companion to find internal Serenity.
 
   return (
     <div className="relative max-w-screen-md mx-auto">
+    
       <div className="fixed top-0 inset-x-0 flex justify-between p-4 bg-white shadow-md z-20">
         <button
           className="px-4 py-2 bg-blue-500 text-white rounded"
@@ -236,6 +288,12 @@ Your ultimate companion to find internal Serenity.
         >
           Chat
         </button>
+        <button
+    className="px-4 py-2 bg-red-500 text-white rounded"
+    onClick={handleReset}
+  >
+    New Chat
+  </button>
         <button
           className="px-4 py-2 bg-green-500 text-white rounded"
           onClick={() => setShowChat(false)}
@@ -312,6 +370,7 @@ Your ultimate companion to find internal Serenity.
                       disabled: streaming,
                     }}
                   />
+                   
                 </div>
               </div>
             </div>
