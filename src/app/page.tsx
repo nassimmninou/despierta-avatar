@@ -45,7 +45,7 @@ let name: string = ""; // Initialize the variable
 if (search) {
   name = search;
 } else {
-  name = "Unregistered";
+  name = "";
 }
 const [language, setLanguage] = useState<string | null>(null);
 const [showLanguageDialog, setShowLanguageDialog] = useState<boolean>(false);
@@ -58,7 +58,7 @@ const [showLanguageDialog, setShowLanguageDialog] = useState<boolean>(false);
   const [audioPlayer, setAudioPlayer] = useState<HTMLAudioElement | null>(null);
   const [visemes, setVisemes] = useState<any>(null);
   const [showChat, setShowChat] = useState<boolean>(false);
-  const [response, setResponse] = useState("Hello "+name+" Are you ready to discover how we can help you reach your full potential ?");
+  const [response, setResponse] = useState("Hello,"+name+" how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide you on various topics and help you find what you need for your well-being and personal development. How can I assist you today?Here are some options to get started:Spirituality: Learn about spiritual practices and how you can elevate your consciousness.Courses and Workshops: Discover our variety of courses and workshops on well-being, spirituality, and personal development.Personal Development: Find tools and resources to improve different aspects of your life.Products: Explore our products designed to help you on your path to growth and well-being.Esotericism and Oracles: Check out our live tarot sessions and other esoteric services.Live Events: Connect with our upcoming live events and sessions.Select one of the options to dive deeper into the topic that interests you most");
   const [count,setCount]=useState(0)
   const [displayText, setDisplayText] = useState('INITIALIZED: ready to test speech...');
   const [recording, setRecording] = useState("not yet");
@@ -76,11 +76,6 @@ Your ultimate companion to find internal Serenity.
           `,
       },
     ],
-    body: {
-      additionalData: {
-        language: "language", // or any other data you want to send
-      }
-    },
     onResponse: () => {
       setStreaming(false);
       saveMessages(messages);
@@ -476,6 +471,24 @@ Your ultimate companion to find internal Serenity.
 
                 </div>
               </div>
+              {messages.length === 1 && (
+                <div className="mt-4 md:mt-6 grid md:grid-cols-2 gap-2 md:gap-4">
+                  {INITIAL_QUESTIONS.map((message) => {
+                    return (
+                      <button
+                        key={message.content}
+                        type="button"
+                        className="cursor-pointer select-none text-left bg-white font-normal
+                      border border-gray-200 rounded-xl p-3 md:px-4 md:py-3
+                      hover:bg-zinc-50 hover:border-zinc-400"
+                        onClick={() => onClickQuestion(message.content)}
+                      >
+                        {message.content}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
         </div>

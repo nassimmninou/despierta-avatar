@@ -1,15 +1,16 @@
 export const INITIAL_QUESTIONS = [
   {
-    content: "Are there resources for students interested in creative writing?",
+    content: "Discuss the topic : SpiritualityCourses and Workshops",
   },
   {
-    content: "Are there courses on environmental sustainability?",
+    content: "Discuss the topic : Personal Development and Products",
   },
   {
     content:
-      "Are there any workshops or seminars on entrepreneurship for students?",
+      "Discuss the topic : Esotericism and Oracles",
   },
   {
-    content: "What kinds of courses will I take as a philosophy major?",
+    content: "Discuss the topic : WLive Events"
   },
 ];
+
