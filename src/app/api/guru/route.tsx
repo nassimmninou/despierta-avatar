@@ -138,295 +138,296 @@ export async function POST(req: NextRequest) {
 
     const qa = [
       `What animal best represents you?
-       - Eagle
-       - Dolphin
-       - Lion
-       - Bear
-     - What activity do you prefer to relax?
-       - Meditate in silence
-       - Listen to music
-       - Walk outdoors
-       - Read a book
-     - Where do you feel most at peace?
-       - At the beach
-       - In the mountains
-       - In the forest
-       - At home
-     - What type of character attracts you most in a story?
-       - The hero
-       - The wise one
-       - The rebel
-       - The villain
-     - What type of movies do you prefer?
-       - Comedies
-       - Dramas
-       - Thrillers
-       - Documentaries`,
+      1) Eagle
+      2) Dolphin
+      3) Lion
+      4) Bear
+      What activity do you prefer to relax?
+      1) Meditate in silence
+      2) Listen to music
+      3) Walk outdoors
+      4) Read a book
+      Where do you feel most at peace?
+      1) At the beach
+      2) In the mountains
+      3) In the forest
+      4) At home
+      What type of character attracts you most in a story?
+      1) The hero
+      2) The wise one
+      3) The rebel
+      4) The villain
+      What type of movies do you prefer?
+      1) Comedies
+      2) Dramas
+      3) Thrillers
+      4) Documentaries`,
       
       `What element best represents your personality?
-       - Fire
-       - Water
-       - Earth
-       - Air
-     - What time of day do you feel most energized?
-       - Morning
-       - Afternoon
-       - Evening
-       - Night
-     - What is your favorite type of weather?
-       - Sunny and warm
-       - Rainy and cool
-       - Snowy and cold
-       - Windy and mild
-     - How do you handle stress?
-       - By talking to someone
-       - By exercising
-       - By doing a hobby
-       - By resting
-     - Which season do you prefer?
-       - Spring
-       - Summer
-       - Autumn
-       - Winter`,
+      1) Fire
+      2) Water
+      3) Earth
+      4) Air
+      What time of day do you feel most energized?
+      1) Morning
+      2) Afternoon
+      3) Evening
+      4) Night
+      What is your favorite type of weather?
+      1) Sunny and warm
+      2) Rainy and cool
+      3) Snowy and cold
+      4) Windy and mild
+      How do you handle stress?
+      1) By talking to someone
+      2) By exercising
+      3) By doing a hobby
+      4) By resting
+      Which season do you prefer?
+      1) Spring
+      2) Summer
+      3) Autumn
+      4) Winter`,
       
       `What role do you typically take in a group project?
-       - Leader
-       - Organizer
-       - Innovator
-       - Supporter
-     - What type of books do you enjoy reading the most?
-       - Fiction
-       - Non-fiction
-       - Science fiction
-       - Biographies
-     - What kind of art appeals to you the most?
-       - Abstract
-       - Realism
-       - Surrealism
-       - Impressionism
-     - How do you prefer to spend your weekends?
-       - Socializing with friends
-       - Engaging in a hobby
-       - Relaxing at home
-       - Exploring new places
-     - What type of vacation do you prefer?
-       - Beach holiday
-       - Adventure trip
-       - Cultural tour
-       - Staycation`,
+      1) Leader
+      2) Organizer
+      3) Innovator
+      4) Supporter
+      What type of books do you enjoy reading the most?
+      1) Fiction
+      2) Non-fiction
+      3) Science fiction
+      4) Biographies
+      What kind of art appeals to you the most?
+      1) Abstract
+      2) Realism
+      3) Surrealism
+      4) Impressionism
+      How do you prefer to spend your weekends?
+      1) Socializing with friends
+      2) Engaging in a hobby
+      3) Relaxing at home
+      4) Exploring new places
+      What type of vacation do you prefer?
+      1) Beach holiday
+      2) Adventure trip
+      3) Cultural tour
+      4) Staycation`,
       
       `Which of these animals do you relate to the most?
-       - Owl
-       - Dog
-       - Cat
-       - Horse
-     - How do you typically solve problems?
-       - Analyzing logically
-       - Seeking advice
-       - Trusting intuition
-       - Researching thoroughly
-     - What is your preferred social setting?
-       - Large parties
-       - Small gatherings
-       - One-on-one conversations
-       - Solitude
-     - Which of these hobbies sounds most appealing to you?
-       - Painting or drawing
-       - Playing sports
-       - Cooking or baking
-       - Writing or journaling
-     - What is your favorite type of music?
-       - Pop
-       - Classical
-       - Rock
-       - Jazz`,
+      1) Owl
+      2) Dog
+      3) Cat
+      4) Horse
+      How do you typically solve problems?
+      1) Analyzing logically
+      2) Seeking advice
+      3) Trusting intuition
+      4) Researching thoroughly
+      What is your preferred social setting?
+      1) Large parties
+      2) Small gatherings
+      3) One-on-one conversations
+      4) Solitude
+      Which of these hobbies sounds most appealing to you?
+      1) Painting or drawing
+      2) Playing sports
+      3) Cooking or baking
+      4) Writing or journaling
+      What is your favorite type of music?
+      1) Pop
+      2) Classical
+      3) Rock
+      4) Jazz`,
       
       `What kind of learner are you?
-       - Visual
-       - Auditory
-       - Kinesthetic
-       - Reading/Writing
-     - How do you approach new challenges?
-       - With enthusiasm
-       - With caution
-       - With skepticism
-       - With curiosity
-     - Which quality do you value most in others?
-       - Honesty
-       - Compassion
-       - Intelligence
-       - Humor
-     - What is your favorite way to express creativity?
-       - Through art
-       - Through writing
-       - Through music
-       - Through dance
-     - What is your preferred type of exercise?
-       - Running or jogging
-       - Yoga or pilates
-       - Team sports
-       - Weightlifting`,
+      1) Visual
+      2) Auditory
+      3) Kinesthetic
+      4) Reading/Writing
+      How do you approach new challenges?
+      1) With enthusiasm
+      2) With caution
+      3) With skepticism
+      4) With curiosity
+      Which quality do you value most in others?
+      1) Honesty
+      2) Compassion
+      3) Intelligence
+      4) Humor
+      What is your favorite way to express creativity?
+      1) Through art
+      2) Through writing
+      3) Through music
+      4) Through dance
+      What is your preferred type of exercise?
+      1) Running or jogging
+      2) Yoga or pilates
+      3) Team sports
+      4) Weightlifting`,
       
       `How do you prefer to communicate?
-       - Face-to-face
-       - Over the phone
-       - Via text message
-       - Through email
-     - What type of cuisine do you enjoy the most?
-       - Italian
-       - Mexican
-       - Japanese
-       - Indian
-     - Which of these values is most important to you?
-       - Freedom
-       - Justice
-       - Equality
-       - Tradition
-     - What is your favorite way to spend a rainy day?
-       - Watching movies
-       - Reading a book
-       - Cooking or baking
-       - Sleeping in
-     - What motivates you the most?
-       - Achieving goals
-       - Helping others
-       - Learning new things
-       - Being recognized`,
+      1) Face-to-face
+      2) Over the phone
+      3) Via text message
+      4) Through email
+      What type of cuisine do you enjoy the most?
+      1) Italian
+      2) Mexican
+      3) Japanese
+      4) Indian
+      Which of these values is most important to you?
+      1) Freedom
+      2) Justice
+      3) Equality
+      4) Tradition
+      What is your favorite way to spend a rainy day?
+      1) Watching movies
+      2) Reading a book
+      3) Cooking or baking
+      4) Sleeping in
+      What motivates you the most?
+      1) Achieving goals
+      2) Helping others
+      3) Learning new things
+      4) Being recognized`,
       
       `What kind of environments do you thrive in?
-       - Structured and orderly
-       - Flexible and adaptable
-       - Fast-paced and dynamic
-       - Calm and steady
-     - What is your favorite way to unwind after a long day?
-       - Taking a bath
-       - Watching TV
-       - Talking to a friend
-       - Going for a walk
-     - Which of these traits best describes you?
-       - Adventurous
-       - Analytical
-       - Empathetic
-       - Creative
-     - What kind of TV shows do you prefer?
-       - Sitcoms
-       - Crime dramas
-       - Reality shows
-       - Sci-fi series
-     - What is your ideal work environment?
-       - Collaborative
-       - Independent
-       - Fast-paced
-       - Relaxed`,
+      1) Structured and orderly
+      2) Flexible and adaptable
+      3) Fast-paced and dynamic
+      4) Calm and steady
+      What is your favorite way to unwind after a long day?
+      1) Taking a bath
+      2) Watching TV
+      3) Talking to a friend
+      4) Going for a walk
+      Which of these traits best describes you?
+      1) Adventurous
+      2) Analytical
+      3) Empathetic
+      4) Creative
+      What kind of TV shows do you prefer?
+      1) Sitcoms
+      2) Crime dramas
+      3) Reality shows
+      4) Sci-fi series
+      What is your ideal work environment?
+      1) Collaborative
+      2) Independent
+      3) Fast-paced
+      4) Relaxed`,
       
       `What do you value most in friendships?
-       - Loyalty
-       - Trust
-       - Fun
-       - Support
-     - What kind of home decor do you prefer?
-       - Modern
-       - Rustic
-       - Minimalist
-       - Eclectic
-     - How do you prefer to spend your free time?
-       - Exploring the outdoors
-       - Creating something new
-       - Learning new skills
-       - Spending time with loved ones
-     - Which historical period fascinates you the most?
-       - Ancient civilizations
-       - Medieval times
-       - Renaissance
-       - Modern era
-     - What is your favorite way to stay active?
-       - Hiking
-       - Dancing
-       - Swimming
-       - Biking`,
+      1) Loyalty
+      2) Trust
+      3) Fun
+      4) Support
+      What kind of home decor do you prefer?
+      1) Modern
+      2) Rustic
+      3) Minimalist
+      4) Eclectic
+      How do you prefer to spend your free time?
+      1) Exploring the outdoors
+      2) Creating something new
+      3) Learning new skills
+      4) Spending time with loved ones
+      Which historical period fascinates you the most?
+      1) Ancient civilizations
+      2) Medieval times
+      3) Renaissance
+      4) Modern era
+      What is your favorite way to stay active?
+      1) Hiking
+      2) Dancing
+      3) Swimming
+      4) Biking`,
       
       `What is your preferred way of traveling?
-       - By plane
-       - By car
-       - By train
-       - By boat
-     - How do you handle conflicts?
-       - Confronting them directly
-       - Avoiding them
-       - Seeking mediation
-       - Compromising
-     - What kind of movies do you avoid?
-       - Horror
-       - Musicals
-       - Rom-coms
-       - War films
-     - What kind of dreams do you remember most often?
-       - Adventures
-       - Nightmares
-       - Fantasies
-       - Mundane events
-     - What type of art do you enjoy creating?
-       - Sculptures
-       - Paintings
-       - Digital art
-       - Crafts`,
+      1) By plane
+      2) By car
+      3) By train
+      4) By boat
+      How do you handle conflicts?
+      1) Confronting them directly
+      2) Avoiding them
+      3) Seeking mediation
+      4) Compromising
+      What kind of movies do you avoid?
+      1) Horror
+      2) Musicals
+      3) Rom-coms
+      4) War films
+      What kind of dreams do you remember most often?
+      1) Adventures
+      2) Nightmares
+      3) Fantasies
+      4) Mundane events
+      What type of art do you enjoy creating?
+      1) Sculptures
+      2) Paintings
+      3) Digital art
+      4) Crafts`,
       
       `What is your favorite way to start the day?
-       - With a workout
-       - With a good breakfast
-       - With meditation
-       - With reading the news
-     - What kind of clothing do you prefer?
-       - Casual
-       - Formal
-       - Sporty
-       - Bohemian
-     - What is your favorite holiday?
-       - Christmas
-       - Halloween
-       - Thanksgiving
-       - New Year's
-     - How do you prefer to spend your lunch break?
-       - Socializing with colleagues
-       - Going for a walk
-       - Eating alone
-       - Running errands
-     - What is your ideal way to celebrate a special occasion?
-       - Hosting a party
-       - Going out to a fancy dinner
-       - Taking a trip
-       - Spending it quietly with close friends or family`,
+      1) With a workout
+      2) With a good breakfast
+      3) With meditation
+      4) With reading the news
+      What kind of clothing do you prefer?
+      1) Casual
+      2) Formal
+      3) Sporty
+      4) Bohemian
+      What is your favorite holiday?
+      1) Christmas
+      2) Halloween
+      3) Thanksgiving
+      4) New Year's
+      How do you prefer to spend your lunch break?
+      1) Socializing with colleagues
+      2) Going for a walk
+      3) Eating alone
+      4) Running errands
+      What is your ideal way to celebrate a special occasion?
+      1) Hosting a party
+      2) Going out to a fancy dinner
+      3) Taking a trip
+      4) Spending it quietly with close friends or family`,
       
       `What kind of pet do you prefer?
-       - Dog
-       - Cat
-       - Bird
-       - Fish
-     - How do you prefer to stay informed?
-       - Reading newspapers
-       - Watching TV news
-       - Listening to podcasts
-       - Following online news sources
-     - What is your favorite type of dessert?
-       - Ice cream
-       - Cake
-       - Cookies
-       - Pie
-     - What is your approach to new technology?
-       - Early adopter
-       - Cautious user
-       - Skeptical
-       - Indifferent
-     - What kind of volunteer work interests you most?
-       - Environmental conservation
-       - Animal rescue
-       - Community service
-       - Educational programs`
-    ];
+      1) Dog
+      2) Cat
+      3) Bird
+      4) Fish
+      How do you prefer to stay informed?
+      1) Reading newspapers
+      2) Watching TV news
+      3) Listening to podcasts
+      4) Following online news sources
+      What is your favorite type of dessert?
+      1) Ice cream
+      2) Cake
+      3) Cookies
+      4) Pie
+      What is your approach to new technology?
+      1) Early adopter
+      2) Cautious user
+      3) Skeptical
+      4) Indifferent
+      What kind of volunteer work interests you most?
+      1) Environmental conservation
+      2) Animal rescue
+      3) Community service
+      4) Educational programs`
+  ];
+  
     
     const AGENT_SYSTEM_TEMPLATE = `
     -note that the user is called ${name} (registred user), you can call the user's by name,
-    ${name === 'Unregistered' ? 'note the use is not registered, remind him to register through the link "despierta.online/login" ' :
+    ${name === '' ? 'note the use is not registered, remind him to register through the link "despierta.online/login" ' :
       
     'note that the user is called '+name+ '(registred user), you can call the user by name,'}
     -note that user doesn't have knowledge and lost you are the guide inside despierta.online
@@ -437,7 +438,7 @@ export async function POST(req: NextRequest) {
     
   1)step first, Request for Information: 
     -birth date , and place of birth then 
-    -multiple-choice questions one by one (not all the questions at once)
+    -multiple-choice questions one by one (not all the questions at once) + include "or" between the options
 
     ${qa[rand]}
 

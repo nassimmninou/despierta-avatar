@@ -2,19 +2,22 @@ import React from "react";
 import Markdown from "markdown-to-jsx";
 import cx from "@/utils/cx";
 import UpstashLogo from "@/components/upstash-logo";
+import { INITIAL_QUESTIONS } from "@/utils/const";
 
 interface ResponseMessageProps {
   content: string;
+
   style?: React.CSSProperties; // Adding style prop
+  isFirst : boolean
 }
 
-const ResponseMessage: React.FC<ResponseMessageProps> = ({ content, style }) => {
+const ResponseMessage: React.FC<ResponseMessageProps> = ({ content, style , isFirst }) => {
   return (
     <article
-      className={cx(
-        "mb-4 flex items-start gap-4 p-4 md:p-5 rounded-2xl",
-        "bg-blue-50", // Different background color for response
-      )}
+    className={cx(
+      "mb-4 flex flex-col items-start gap-4 p-4 md:p-5 rounded-2xl",
+      "bg-blue-50" // Different background color for response
+    )}
       style={{
         ...style,
         maxHeight: '100%', // Set a maximum height
@@ -44,6 +47,29 @@ const ResponseMessage: React.FC<ResponseMessageProps> = ({ content, style }) => 
       >
         {content}
       </Markdown>
+      {
+        isFirst &&       <div className="mt-4 md:mt-6 grid md:grid-cols-4 gap-2 md:gap-4">
+        {INITIAL_QUESTIONS.map((message) => {
+          function onClickQuestion(content: string): void {
+            throw new Error("Function not implemented.");
+          }
+
+          return (
+            <button
+              key={message.content}
+              type="button"
+              className="cursor-pointer select-none text-left bg-white font-normal
+            border border-gray-200 rounded-xl p-3 md:px-4 md:py-3
+            hover:bg-zinc-50 hover:border-zinc-400"
+              onClick={() => onClickQuestion(message.content)}
+            >
+              {message.content}
+            </button>
+          );
+        })}
+      </div>
+      }
+
     </article>
   );
 };

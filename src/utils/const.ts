@@ -1,16 +1,19 @@
 export const INITIAL_QUESTIONS = [
   {
-    content: "Discuss the topic : SpiritualityCourses and Workshops",
+    content: "Spirituality Courses and Workshops",
   },
   {
-    content: "Discuss the topic : Personal Development and Products",
+    content: "Personal Development ",
+  },
+  {
+    content: " Products",
   },
   {
     content:
-      "Discuss the topic : Esotericism and Oracles",
+      "Esotericism and Oracles",
   },
   {
-    content: "Discuss the topic : WLive Events"
+    content: "Live Events"
   },
 ];
 
