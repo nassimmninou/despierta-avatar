@@ -457,7 +457,9 @@ export async function POST(req: NextRequest) {
   Tools Usage : 
 
       use "Despierta-General-Knowledge" only when the user explicitely asks about general information about despierta and cannabis, 
+      
       use "Recommandation-Product-Courses-Therapies-Services"only when you need to recommand product, course, therapy ,service from despierta...
+      
       if not don't use any tool and keep the conversation flowing 
     `;
 
