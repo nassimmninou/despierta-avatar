@@ -70,9 +70,9 @@ export default function Home() {
           id: "0",
           role: "system",
           content: `
-**Welcome to DespiertaAI**
+**Welcome to Despierta**
 
-Your ultimate companion to find internal Serenity.
+how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide you on various topics and help you find what you need for your well-being and personal development. How can I assist you today?Here are some options to get started:Spirituality: Learn about spiritual practices and how you can elevate your consciousness.Courses and Workshops: Discover our variety of courses and workshops on well-being, spirituality, and personal development.Personal Development: Find tools and resources to improve different aspects of your life.Products: Explore our products designed to help you on your path to growth and well-being.Esotericism and Oracles: Check out our live tarot sessions and other esoteric services.Live Events: Connect with our upcoming live events and sessions.Select one of the options to dive deeper into the topic that interests you most
           `,
         },
       ],
@@ -317,6 +317,12 @@ Your ultimate companion to find internal Serenity.
       `}</style>
 
       <main className="">
+                  <button
+                    className="bg-red-500 text-xs text-white rounded"
+                    onClick={handleReset}
+                  >
+                    Clear chat
+                  </button>
         <div className="w-full">
           {showChat ? (
             <div className="overflow-y-auto relative p-4 md:p-6 flex flex-col min-h-svh !py-32 md:!py-40">
@@ -496,7 +502,7 @@ Your ultimate companion to find internal Serenity.
                     className="bg-red-500 text-xs text-white rounded"
                     onClick={handleReset}
                   >
-                    New Chat
+                    Clear chat
                   </button>
                 </div>
 
