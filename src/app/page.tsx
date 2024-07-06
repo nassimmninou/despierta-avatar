@@ -317,12 +317,6 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
       `}</style>
 
       <main className="">
-                  <button
-                    className="bg-red-500 text-xs text-white rounded"
-                    onClick={handleReset}
-                  >
-                    Clear chat
-                  </button>
         <div className="w-full">
           {showChat ? (
             <div className="overflow-y-auto relative p-4 md:p-6 flex flex-col min-h-svh !py-32 md:!py-40">
@@ -375,59 +369,53 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
               </div>
             </div>
           ) : (
-            <div className={`flex justify-center w-full mar h-dvh   items-center  ${messages.length === 1 ? "!pb-40   md:!pb-40" : " !pb-25   md:!pb-35 "}   `}>
-              <div className="relative h-full w-full flex items-center justify-center">
-                <video
-                  src="waiting.mp4"
-                  playsInline
-                  autoPlay
-                  muted
-                  loop
-                  preload="auto"
-                  className={`absolute inset-0 h-4/5 w-full ${avatarState === "waiting" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
+            <div className="flex justify-center w-full mar h-dvh flex-col items-center !pb-30 md:!pb-35">
+              <div className="relative h-4/5 w-full flex items-center justify-center">
+                <img
+                  src="waiting.png"
+                  className={`absolute h-full w-auto ${avatarState === "waiting" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
                 />
                 <video
                   src="listening.mp4"
                   playsInline
                   autoPlay
-                  muted
+                  muted 
                   loop
                   preload="auto"
-                  className={`absolute inset-0  h-4/5  w-full ${avatarState === "listening" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
+                  className={`absolute inset-0 h-full w-full ${avatarState === "listening" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
                 />
                 <video
                   src="thinking.mp4"
                   playsInline
                   autoPlay
-                  muted
+                  muted 
                   loop
                   preload="auto"
-                  className={`absolute inset-0  h-4/5  w-full ${avatarState === "thinking" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
+                  className={`absolute inset-0 h-full w-full ${avatarState === "thinking" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
                 />
                 <video
                   src="speaking.mp4"
                   playsInline
                   autoPlay
-                  muted
+                  muted 
                   loop
                   preload="auto"
-                  className={`absolute inset-0  h-4/5  w-full ${avatarState === "speaking" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
+                  className={`absolute inset-0 h-full w-full ${avatarState === "speaking" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
                 />
-                {avatarState === "waiting" && (
-                  <ResponseMessage content={response} style={{ height: '20%', position: 'absolute', bottom: 0, zIndex: 2, width: '100%', opacity: 0.8 }} />
-                )}
-                {avatarState === "listening" && (
-                  <ResponseMessage content="Listening ..." style={{ height: '20%', position: 'absolute', bottom: 0, zIndex: 2, width: '100%', opacity: 0.8 }} />
-                )}
-                {avatarState === "thinking" && (
-                  <ResponseMessage content="Analyzing ..." style={{ height: '20%', position: 'absolute', bottom: 0, zIndex: 2, width: '100%', opacity: 0.8 }} />
-                )}
-                {avatarState === "speaking" && (
-                  <ResponseMessage content={response} style={{ height: '20%', position: 'absolute', bottom: 0, zIndex: 2, width: '100%', opacity: 0.8 }} />
-                )}
               </div>
-              
-              <div
+              {avatarState === "waiting" && (
+                <ResponseMessage content={response} style={{ height: '60%' }} />
+              )}
+              {avatarState === "listening" && (
+                <ResponseMessage content="Listening ..." style={{ height: '60%' }} />
+              )}
+              {avatarState === "thinking" && (
+                <ResponseMessage content="Generating Your response ..." style={{ height: '60%' }} />
+              )}
+              {avatarState === "speaking" && (
+                <ResponseMessage content={response} style={{ height: '60%' }} />
+              )}
+<div
                 className={cx(
                   "fixed mt-6 z-10 bottom-0 inset-x-0",
                   "flex flex-col justify-center items-center",
@@ -502,7 +490,7 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
                     className="bg-red-500 text-xs text-white rounded"
                     onClick={handleReset}
                   >
-                    Clear chat
+                    Start Over
                   </button>
                 </div>
 

@@ -44,7 +44,6 @@ const ResponseMessage: React.FC<ResponseMessageProps> = ({ content, style }) => 
       >
         {content}
       </Markdown>
-      
     </article>
   );
 };
