@@ -379,7 +379,7 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
                   src="listening.mp4"
                   playsInline
                   autoPlay
-                  muted 
+                  muted
                   loop
                   preload="auto"
                   className={`absolute inset-0 h-full w-full ${avatarState === "listening" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
@@ -388,7 +388,7 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
                   src="thinking.mp4"
                   playsInline
                   autoPlay
-                  muted 
+                  muted
                   loop
                   preload="auto"
                   className={`absolute inset-0 h-full w-full ${avatarState === "thinking" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
@@ -397,7 +397,7 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
                   src="speaking.mp4"
                   playsInline
                   autoPlay
-                  muted 
+                  muted
                   loop
                   preload="auto"
                   className={`absolute inset-0 h-full w-full ${avatarState === "speaking" ? "fade-enter fade-enter-active" : "fade-exit fade-exit-active"}`}
@@ -415,7 +415,7 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
               {avatarState === "speaking" && (
                 <ResponseMessage content={response} style={{ height: '60%' }} />
               )}
-<div
+              <div
                 className={cx(
                   "fixed mt-6 z-10 bottom-0 inset-x-0",
                   "flex flex-col justify-center items-center",
@@ -424,25 +424,24 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
               >
 
                 {messages.length === 1 && (
-                <div className="flex max-w-screen-md  flex-rows" >
-                  {INITIAL_QUESTIONS.map((message) => {
-                    return (
-                      <button
-                        key={message.content}
-                        type="button"
-                        className="text-xs select-none  bg-white font-normal
+                  <div className="flex max-w-screen-md  flex-rows" >
+                    {INITIAL_QUESTIONS.map((message) => {
+                      return (
+                        <button
+                          key={message.content}
+                          type="button"
+                          className="text-xs select-none  bg-white font-normal
                       border border-gray-200 rounded-xl p-3 md:px-4 md:py-3
                       hover:bg-green-50 hover:border-green-400"
-                        onClick={() => onClickQuestion(message.content)}
-                      >
-                        {message.content}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-                <span className="absolute bottom-full h-10 inset-x-0 from-white/0 bg-gradient-to-b to-white pointer-events-none" />
-                <div className="w-full max-w-screen-md  px-4  py-6 flex items-center">
+                          onClick={() => onClickQuestion(message.content)}
+                        >
+                          {message.content}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+                <div className="w-full max-w-screen-md px-4 py-6 flex flex-wrap sm:flex-nowrap items-center">
 
                   <div className="w-full">
                     <Form
