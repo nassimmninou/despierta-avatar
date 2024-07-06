@@ -424,15 +424,14 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
               >
 
                 {messages.length === 1 && (
-                  <div className="flex max-w-screen-md  flex-rows" >
+                  <div className="w-full overflow-x-auto">
+                  <div className="inline-flex max-w-screen-md">
                     {INITIAL_QUESTIONS.map((message) => {
                       return (
                         <button
                           key={message.content}
                           type="button"
-                          className="text-xs select-none  bg-white font-normal
-                      border border-gray-200 rounded-xl p-3 md:px-4 md:py-3
-                      hover:bg-green-50 hover:border-green-400"
+                          className="text-xs select-none bg-white font-normal border border-gray-200 rounded-xl p-3 md:px-4 md:py-3 hover:bg-green-50 hover:border-green-400"
                           onClick={() => onClickQuestion(message.content)}
                         >
                           {message.content}
@@ -440,8 +439,10 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
                       );
                     })}
                   </div>
+                </div>
+                
                 )}
-                <div className="w-full max-w-screen-md px-4 py-6 flex flex-wrap sm:flex-nowrap items-center">
+                <div className="w-full max-w-screen-md px-4  flex flex-wrap sm:flex-nowrap items-center">
 
                   <div className="w-full">
                     <Form
