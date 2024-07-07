@@ -1,19 +1,17 @@
 export const INITIAL_QUESTIONS = [
   {
-    content: "Spirituality Courses and Workshops",
+    content: "Cursos y talleres de espiritualidad",
   },
   {
-    content: "Personal Development ",
+    content: "Desarrollo personal",
   },
   {
-    content: " Products",
+    content: "Productos",
   },
   {
-    content:
-      "Esotericism and Oracles",
+    content: "Esoterismo y oráculos",
   },
   {
-    content: "Live Events"
+    content: "Eventos en vivo",
   },
 ];
-

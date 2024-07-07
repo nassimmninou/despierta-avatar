@@ -58,7 +58,7 @@ export default function Home() {
   const [audioPlayer, setAudioPlayer] = useState<HTMLAudioElement | null>(null);
   const [visemes, setVisemes] = useState<any>(null);
   const [showChat, setShowChat] = useState<boolean>(false);
-  const [response, setResponse] = useState("Hello," + name + " how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide you on various topics and help you find what you need for your well-being and personal development. How can I assist you today?Here are some options to get started:Spirituality: Learn about spiritual practices and how you can elevate your consciousness.Courses and Workshops: Discover our variety of courses and workshops on well-being, spirituality, and personal development.Personal Development: Find tools and resources to improve different aspects of your life.Products: Explore our products designed to help you on your path to growth and well-being.Esotericism and Oracles: Check out our live tarot sessions and other esoteric services.Live Events: Connect with our upcoming live events and sessions.Select one of the options to dive deeper into the topic that interests you most");
+  const [response, setResponse] = useState("Hola, ¿cómo estás? Soy Zen, tu guía personal en Despierta.online, aquí para ayudarte con bienestar y desarrollo personal: Espiritualidad, Cursos y Talleres, Desarrollo Personal, Productos, Esoterismo y Oráculos, y Eventos en Vivo. ¿Cómo puedo asistirte hoy?");
   const [count, setCount] = useState(0)
   const [displayText, setDisplayText] = useState('INITIALIZED: ready to test speech...');
   const [recording, setRecording] = useState("not yet");
@@ -94,6 +94,7 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
   };
 
   async function sttFromMic() {
+    console.log(language)
     if (recognizer) {
 
       recognizer.stopContinuousRecognitionAsync(
@@ -422,16 +423,16 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
                   "bg-white "
                 )}
               >
-
                 {messages.length === 1 && (
-                  <div className="w-full overflow-x-auto">
-                  <div className="inline-flex max-w-screen-md">
+                  <div className="flex md:max-w-screen-md max-w-screen-sm  overflow-x-auto  flex-rows" >
                     {INITIAL_QUESTIONS.map((message) => {
                       return (
                         <button
                           key={message.content}
                           type="button"
-                          className="text-xs select-none bg-white font-normal border border-gray-200 rounded-xl p-3 md:px-4 md:py-3 hover:bg-green-50 hover:border-green-400"
+                          className="text-xs select-none  bg-white font-normal
+                      border border-gray-200 rounded-xl p-3 md:px-4 md:py-1
+                      hover:bg-green-50 hover:border-green-400"
                           onClick={() => onClickQuestion(message.content)}
                         >
                           {message.content}
@@ -439,8 +440,6 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
                       );
                     })}
                   </div>
-                </div>
-                
                 )}
                 <div className="w-full max-w-screen-md px-4  flex flex-wrap sm:flex-nowrap items-center">
 
@@ -490,7 +489,7 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
                     className="bg-red-500 text-xs text-white rounded"
                     onClick={handleReset}
                   >
-                    Start Over
+                   Empezar de nuevo
                   </button>
                 </div>
 
