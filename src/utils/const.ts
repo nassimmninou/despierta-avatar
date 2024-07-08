@@ -15,6 +15,6 @@ export const INITIAL_QUESTIONS = [
     content: "Eventos en vivo",
   },
   {
-    content: "Terapias",
+    content: "Cannabis medicinal",
   },
 ];
