@@ -15,18 +15,6 @@ export const INITIAL_QUESTIONS = [
     content: "Eventos en vivo",
   },
   {
-    content: "Eventos en vivo",
+    content: "Terapias",
   },
-  {
-    content: "Eventos en vivo",
-  },
-  {
-    content: "Eventos en vivo",
-  },
-  
-  {
-    content: "Eventos en vivo",
-  },
-  
-
 ];

@@ -370,7 +370,7 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
               </div>
             </div>
           ) : (
-            <div className="flex justify-center w-full mar h-dvh flex-col items-center !pb-30 md:!pb-35">
+            <div className="flex justify-center w-full mar h-dvh flex-col items-center ">
               <div className="relative h-4/5 w-full flex items-center justify-center">
                 <img
                   src="waiting.png"
@@ -475,7 +475,6 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
                       )}
                     </div>
                   )}
-
                   {avatarState === "listening" && (
                     <button onClick={() => sttFromMic()}><span className="flex items-center justify-center bg-black rounded-full p-4"><BsFillStopCircleFill className="text-blue-500 text-3xl" /></span></button>
                   )}
@@ -492,9 +491,7 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
                    Empezar de nuevo
                   </button>
                 </div>
-
               </div>
-
             </div>
           )}
         </div>
