@@ -370,7 +370,7 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
               </div>
             </div>
           ) : (
-            <div className="flex justify-center w-full mar h-dvh flex-col items-center !pb-30 md:!pb-0   ">
+            <div className="flex justify-center w-full mar h-dvh flex-col items-center !pb-30 md:!pb-16   ">
               <div className="relative h-4/5 w-full flex items-center justify-center">
                 <img
                   src="waiting.png"
