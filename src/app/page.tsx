@@ -424,7 +424,7 @@ how are you? I'm Zen, your personal guide at Despierta.online. I'm here to guide
                 )}
               >
                 {messages.length === 1 && (
-                  <div className="flex md:max-w-screen-md max-w-screen-sm  overflow-x-auto  flex-rows" >
+                  <div className="flex md:max-w-screen-md max-w-full overflow-x-auto  flex-rows" >
                     {INITIAL_QUESTIONS.map((message) => {
                       return (
                         <button

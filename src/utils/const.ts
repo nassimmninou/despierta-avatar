@@ -14,4 +14,19 @@ export const INITIAL_QUESTIONS = [
   {
     content: "Eventos en vivo",
   },
+  {
+    content: "Eventos en vivo",
+  },
+  {
+    content: "Eventos en vivo",
+  },
+  {
+    content: "Eventos en vivo",
+  },
+  
+  {
+    content: "Eventos en vivo",
+  },
+  
+
 ];
