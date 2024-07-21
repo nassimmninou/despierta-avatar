@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-
 import { Message as VercelChatMessage, StreamingTextResponse } from "ai";
-
 import { AIMessage, ChatMessage, HumanMessage } from "@langchain/core/messages";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { createRetrieverTool } from "langchain/tools/retriever";
@@ -13,10 +10,7 @@ import {
   ChatPromptTemplate,
   MessagesPlaceholder,
 } from "@langchain/core/prompts";
-
 import { UpstashVectorStore } from "@/app/vectorstore/UpstashVectorStore";
-import { UpstashVectorStore2 } from "@/app/vectorstore/UpstashVectorStore2";
-
 async function fetchTextFile(url: string | URL | Request) {
   try {
     const response = await fetch(url);
@@ -93,16 +87,10 @@ export async function POST(req: NextRequest) {
     const chatModel = new ChatOpenAI({
       modelName: "gpt-3.5-turbo-1106",
       temperature: 0.2,
-      // IMPORTANT: Must "streaming: true" on OpenAI to enable final output streaming below.
       streaming: true,
     });
 
-    /**
-     * Create vector store and retriever
-     */
     const vectorstore = await new UpstashVectorStore(new OpenAIEmbeddings());
-    const vectorstore2 = await new UpstashVectorStore2(new OpenAIEmbeddings());
-
     const retriever = vectorstore.asRetriever(
       {
         k: 6,
@@ -114,32 +102,12 @@ export async function POST(req: NextRequest) {
         verbose: false
       },
     );
-    
-    const retriever2 = vectorstore2.asRetriever(
-      {
-        k: 25,
-        searchType: "mmr",
-        searchKwargs: {
-          fetchK: 25,
-          lambda: 0.5
-        },
-        verbose: false
-      },
-    );
 
-    /**
-     * Wrap the retriever in a tool to present it to the agent in a
-     * usable form.
-     */
     const tool = createRetrieverTool(retriever, {
       name: "Despierta-General-Knowledge",
       description: "used to search General information to answer general questions about despierta (not recommanding products , music, therapies, services from despierta ...)",
     });
-    const tool2 = createRetrieverTool(retriever2, {
-      name: "Recommandation-Product-Courses-Therapies-Services",
-      description: "Searches for details about products, courses, therapies and services for recommandation and details providing.",
-    });
-    
+
     const default_prompt = `
     Objective: Create detailed user profiles to recommend recorded courses, live courses, products, services like medicine music, one-on-one therapies, and live events, while encouraging users to register on the site for personalized communications and offers.
 
@@ -221,13 +189,13 @@ Zen: Great! Thank you for registering. Now, with the information you provided, I
 
     const agent = await createOpenAIFunctionsAgent({
       llm: chatModel,
-      tools: [tool,tool2],
+      tools: [tool],
       prompt,
     });
 
     const agentExecutor = new AgentExecutor({
       agent,
-      tools: [tool,tool2],
+      tools: [tool],
       // Set this if you want to receive all intermediate steps in the output of .invoke().
       returnIntermediateSteps,
     });
