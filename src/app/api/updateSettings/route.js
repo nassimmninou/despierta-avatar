@@ -25,6 +25,6 @@ export async function PUT(req, res) {
     }
   } catch (error) {
     console.error('Error updating prompt:', error);
-    return new Response(JSON.stringify({ error: 'Failed to update prompt' }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ error: 'Failed to update prompt'+error }), { status: 500, headers: { 'Content-Type': 'application/json' } });
   }
 }
